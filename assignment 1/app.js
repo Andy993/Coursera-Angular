@@ -29,7 +29,7 @@
                  else {
                     $scope.message = "Too much!";
                 }
-                console.log(food.length);
+                
             }
 
 

@@ -26,10 +26,8 @@ function AlreadyBoughtController(ShoppingListCheckOffService){
 
 var bought = this;
 
-
 bought.Bought = ShoppingListCheckOffService.getBought();
-bought.errormsg = ShoppingListCheckOffService.errormsg();
-
+bought.messageVisible = function(){return ShoppingListCheckOffService.isBought();};
 
 };
 
@@ -37,7 +35,12 @@ function ShoppingListCheckOffService()
 {
     var service = this;
 
-    
+    var status = true;
+
+    service.returnStatus = function(){
+        return status;
+    }
+
     var ToBuy = [
         {item_quantity : 1 , item_name : 'cookies'} ,
         {item_quantity : 2, item_name : 'chips'} ,
@@ -54,14 +57,10 @@ function ShoppingListCheckOffService()
     };
 
     service.purchased = function(itemIndex) {
-        // console.log(ToBuy.splice(itemIndex,1));
         var temp = ToBuy.splice(itemIndex,1);
-        // Bought.push(temp);
         service.addItem(temp[0].item_quantity,temp[0].item_name);
-        // console.log(temp[0]);
-        // console.log(ToBuy);
-        // console.log(Bought[0]);
-
+        status = false;
+        
     };
 
     service.statusCheck =  function(){
@@ -88,33 +87,12 @@ function ShoppingListCheckOffService()
           Bought.push(item);
     }
 
-    // service.checkBought = function()
-    // {
-    //     console.log(Bought.length);
-    //     if(Bought.length<1){
-    //         var status = true;
-    //         status.errmsg = "Nothing bought yet.";
-    //     }
-    //     else{
-    //         var status = false;
-    //     }
+    service.isBought = function () {
+        return !(Bought.length > 0);
+    };
 
-    //     return status;
-    // }
 
-    service.errormsg = function()
-    {
-        console.log(Bought.length);
-        if(Bought.length<1){
-            var errmsg = "Nothing bought yet.";
-        }
-        else{
-            var errmsg = false;
-        }
-
-        return errmsg;
-
-    }
+ 
 
 
 

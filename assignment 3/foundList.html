@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<div ng-repeat="item in found">
+    <br>
+    <section>
+        {{$index + 1}}. {{ item.name}}
+    </section>
+    <button
+        class="btn btn-sm btn-info"
+        ng-click="removeItem({index: $index});"
+        >
+        Don't want this one!
+    </button>
+</div>
